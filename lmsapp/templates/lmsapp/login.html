@@ -1,0 +1,15 @@
+{% extends 'lmsapp/base.html' %}
+
+
+{% block title %}Login - LMS App{% endblock %}
+
+{% block subheading %}Login{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+
+
+<table class="table table-striped">
+        <thead>
+           <tr>
+              <td>Book Name</td>
+              <td>Edition</td>
+              <td>Author</td>
+              <td>Genre</td>
+              <td>Available</td>
+           </tr>
+        </thead>
+        <tbody>
+           {% for result in results %}
+           <tr>
+              <td><a href="{% url 'getbook' result.book_id %}">{{ result.book_name }}</a></td>
+              <td>{{ result.book_edition}}</td>
+              <td>{{ result.book_author }}</td>
+              <td>{{ result.book_genre }}</td>
+              {% if result.book_issued %}
+              <td>No</td>
+              {% else %}
+              <td>Yes</td>
+              {% endif %}
+           </tr>
+           {% endfor %}
+        </tbody>
+     </table>
+     
+     

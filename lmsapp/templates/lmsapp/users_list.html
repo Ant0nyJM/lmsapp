@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    function submitUsername(){
+            if(confirm("Book will be issued to "+$("input[name='userselect']:checked").val())){
+                $.ajax({
+                url : "{% url 'dash_book_issue' %}",
+                method : 'post',
+                data : {'username': $("input[name='userselect']:checked").val()},
+                success : function(retData,textstatus,jqXHR){
+                alert(retData['msg']);
+                window.location.reload(true);
+                },
+
+            });
+        }
+
+
+    }
+</script>
+
+<table class="table table-striped">
+        <thead>
+           <tr>
+              <td>User Name</td>
+              <td>Select user</td>
+           </tr>
+        </thead>
+        <tbody>
+           {% for user in users %}
+           <tr>
+               <td>{{ user.username }}</td>
+              <td><input type="radio" name="userselect" value="{{ user.username}}"></td>
+           </tr>
+           {% endfor %}
+
+        </tbody>
+</table>
+<input type="button" class="btn btn-success" value="Issue Book" onclick="submitUsername()">

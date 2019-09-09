@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    
+    function submitUsername(){
+
+        $.ajax({
+            url : "{% url 'user_search' %}",
+            data : {'query':$("#usr_inp").val()},
+            method : 'post',
+            success :  function(retData,textStatus,jqXHR){
+                            $("#userstable").html(retData);
+                        },
+                        
+        });
+    }
+</script>
+
+<!-- <input list='data_list' autocomplete=off onchange='getUsernames()' id='usr_inp'> -->
+<input   id='usr_inp'>
+
+<input type='button' onclick='submitUsername()' value='Search'>
+<div id='userstable'>
+
+</div>

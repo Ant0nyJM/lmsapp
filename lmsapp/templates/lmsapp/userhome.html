@@ -1,0 +1,45 @@
+{% extends 'lmsapp/base.html' %}
+{% block title %}{{user.username}}'s Homepage{% endblock %}
+<div class="container">
+
+
+<div class="row">
+    <div class="col-*-6">
+            {% block subheading %}{{user.username}}{% endblock %}
+    </div>
+    <div class="col-*-6">
+        Hell
+    </div>
+    
+</div>
+
+<div class="row">
+    <div class="col-*-6">
+            {% block content %}
+
+            {% if user.book_set.all|length == 0 %} 
+                <p>No Books Issued</p>
+            {%  else %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Book Name</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for book in user.book_set.all %}
+                                <tr>
+                                    <td><a href="{% url 'getbook' book.book_id %}">{{ book.book_name }}</a></td>
+                                </tr>
+                            {% endfor %}
+    
+                    </tbody>
+                </table>
+                
+            {% endif %}
+        {%endblock%}
+    </div>
+    <div class="col-*-6"></div>
+</div>
+
+</div>

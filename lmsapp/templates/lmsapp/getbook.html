@@ -1,0 +1,35 @@
+{% extends 'lmsapp/base.html' %}
+
+{% block title%}Book{% endblock %}
+
+{% block subheading%}Book Details{% endblock %}
+
+{% block content %}
+<script type='text/javascript'>
+    function returnbook(){
+
+        $.ajax({
+
+            url : "{% url 'book_return' %}",
+            method : 'get',
+            success : function(retData,textStatus,jqXHR){
+                window.alert(retData['msg']);
+                window.location.reload();
+            },
+        });
+    }
+</script>
+<div class="row"><div class="col-sm-4"> <p>{{ book.book_name }}</p> </div></div>
+<div class="row"><div class="col-sm-4"> <p>{{ book.book_author }}</p> </div></div>
+<div class="row"><div class="col-sm-4"> <p>{{ book.book_edition }}</p> </div></div>
+<div class="row"><div class="col-sm-4"> <p>{{ book.book_genre }}</p> </div></div>
+
+{% if perms.lmsapp.can_change %}
+    {% if book.book_issued %}
+        <p>Book issued to {{ book.book_issuer.username }}</p>
+        <input class="btn btn-warning" type='button' onclick='returnbook()' value='Click to return'>
+    {% else %}
+        {% include 'lmsapp/usersearchwidget.html' %}
+    {% endif %}
+ {% endif %}
+{% endblock %}
