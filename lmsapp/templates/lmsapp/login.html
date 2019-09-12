@@ -1,15 +1,66 @@
 {% extends 'lmsapp/base.html' %}
-
+{% load widget_tweaks %}
 
 {% block title %}Login - LMS App{% endblock %}
 
 {% block subheading %}Login{% endblock %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+<!--
+<div class="container">
+    <div class="col-md-4">
+            <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <label for="{{form.username.id_for_label}}">Username </label>
+                        {% render_field form.username style="border:0.0625rem solid green;border-radius:0.3125rem;" %}
+                    
+                    </div>
+                    <div class="row">
+                        <label for="{{form.password.id_for_label}}">Password </label>
+                        {% render_field form.password style="border:0.0625rem solid green;border-radius:0.3125rem;" %}
+                
+                    </div>
+                    <div class="row">
+                            <button type="submit" class="btn btn-success btn-block">Login</button>
+                    </div>
+                        
+                        
+                </form>
+
+    </div>
+        
+
+</div>
+-->
+
+
+<div class="container ml-1">
+    <div class="col-md-4">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row p-1">
+                    {% render_field form.username class+="form-control p-1" placeholder="Username" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+            </div>
+
+            <div class="row p-1">
+                    {% render_field form.password class="form-control p-1" placeholder="Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+            </div>
+
+            <div class="row p-1">
+                <div class="col pl-0">
+                    <input type="submit" class="form-control btn btn-success" value="Login">
+                </div>
+                <div class="col align-self-center">
+                    <small class="float-right"><a href="#">Forgot Password?</a></small>
+                    
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+    
 
 {% endblock %}

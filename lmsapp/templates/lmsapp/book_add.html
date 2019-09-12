@@ -7,26 +7,7 @@
 <div class="col-sm-6">
 <form method="post"> 
     {% csrf_token %}
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <td><label for="inp_book_name">Book Name</label></td>
-                <td><input type="text" name="book_name" id="inp_book_name" ></td>
-            </tr>
-            <tr>
-                <td><label for="inp_book_author">Book Author</label></td>
-                <td><input type="text" name="book_author" id="inp_book_author" ></td>
-            </tr> 
-            <tr>
-                <td><label for="inp_book_edition">Book Edition</label></td>
-                <td><input type="text" name="book_edition" id="inp_book_edition" ></td>
-            </tr> 
-            <tr>
-                <td><label for="inp_book_genre">Book Genre</label></td>
-                <td><input type="text" name="book_genre" id="inp_book_genre" ></td>
-            </tr>     
-        </tbody>
-    </table>
+    {{ form.as_p }}
     <input type="submit" class="btn btn-success" value="Add Book">
 </form>
 </div>

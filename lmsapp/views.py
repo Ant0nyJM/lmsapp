@@ -1,11 +1,12 @@
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,Http404
 from django.shortcuts import render,redirect,reverse
 from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm
 from django.core import serializers
 
 from django.contrib.auth.models import User
 from lmsapp.models import Book
+from lmsapp.forms import BookForm
 
 import json
 
@@ -78,7 +79,10 @@ def book_search(request):
         return render(request,'lmsapp/booksearch.html')
 
 def get_book(request,book_id):
-    details = Book.objects.get(pk=book_id)
+    try:
+        details = Book.objects.get(pk=book_id)
+    except Book.DoesNotExist:
+        raise Http404('Book does not exist')
     request.session['current_view_book']=book_id
     return render(request,'lmsapp/getbook.html',{'book':details})
 
@@ -109,10 +113,46 @@ def book_return(request):
 
 def book_add(request):
     if request.method == 'POST':
-        p = request.POST
-        b = Book(book_name=p['book_name'],book_author=p['book_author'],book_edition=p['book_edition'],book_genre=p['book_genre'])
-        b.save()
-        print("-----------------------------",reverse('getbook',args=[b.book_id]))
-        return redirect(reverse('getbook',args=[b.book_id]))
+        form = BookForm(request.POST)
+        if(form.is_valid()):
+            obj = form.save()
+            return redirect(reverse('getbook',args=[obj.book_id]))
+        else:
+            return HttpResponse("Invalid submission")
     else:
-        return render(request,'lmsapp/book_add.html')
+        form = BookForm()
+        return render(request,'lmsapp/book_add.html',{'form':form})
+
+
+def passw_change(request,user_id):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user,request.POST)
+        if form.is_valid():
+            form.save()
+            return userlogout(request)
+        else:
+            return HttpResponse("Invalid form")
+    else:
+        form = PasswordChangeForm(request.user)
+        return render(request,'lmsapp/passwchange.html',{'form':form})
+
+
+def book_edit(request):
+    book = Book.objects.get(book_id=request.session['current_view_book'])
+    if(request.method == 'POST'):
+        form = BookForm(request.POST,instance=book)
+        if(form.is_valid()):
+            form.save()
+            return redirect(reverse('getbook',args=[book.book_id]))
+    else:
+        form = BookForm(instance=book)
+        return render(request,'lmsapp/bookedit.html',{'form':form})
+
+def book_delete(request):
+    book = Book.objects.get(book_id=request.session['current_view_book'])
+    if(book.book_issued):
+        return JsonResponse({'ret-msg':'Book can only be deleted after return','deleted':'false'})
+    else:
+        book.delete()
+        return JsonResponse({'ret-msg':'Book Successfully deleted','deleted':'true'})
+        
