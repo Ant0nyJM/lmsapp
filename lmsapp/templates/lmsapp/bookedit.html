@@ -1,10 +1,44 @@
 {% extends 'lmsapp/base.html' %}
+{% load widget_tweaks %}
 {% block title  %}Edit Book{% endblock %}
+{% block subheading  %}Edit Book{% endblock %}
+{% block style %}
+<style>
+    #edit-bk-tb { color:green;}
+    #edit-bk-tb * {padding:0px;}
+</style>
+{% endblock %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save Changes">
-    </form>
+<div class="container-fluid">
+    <div class="col-md-12">
+            <form method="post">
+                    {% csrf_token %}
+                    <table id="edit-bk-tb" class="table table-bordered" style="width:auto;">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="table-success">Book Name</th>
+                                <td>{% render_field form.book_name class+="form-control" style="color: black;border:0.0625rem solid green;border-radius:0px;" %}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="table-success">Book Author</th>
+                                <td>{% render_field form.book_author class+="form-control" style="color: black;border:0.0625rem solid green;border-radius:0px;" %}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="table-success">Book Edition</th>
+                                <td>{% render_field form.book_edition class+="form-control" style="color: black;border:0.0625rem solid green;border-radius:0px;" %}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="table-success">Book Genre</th>
+                                <td>{% render_field form.book_genre class+="form-control" style="color: black;border:0.0625rem solid green;border-radius:0px;" %}</td>
+                            </tr>
+            
+                        </tbody>
+            
+                    </table>
+                    <input type="submit" class="btn btn-info" value="Save Changes">
+            </form>
+    </div>
+    
+</div>
 
 {% endblock %}

@@ -25,7 +25,7 @@ SECRET_KEY = 'n4cxuq!es5yxt7bznbbf8o^olhl$einyv+p3len1*3=8ri69md'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','newapp-pp.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0','localhost','newapp-pp.herokuapp.com']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,6 +88,18 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'def2tfi3vdvbqf',
+#         'USER':'lcxxsxcstmbqlx',
+#         'PASSWORD':'6f21e53ecfec25b3ed91eba6a3b40c345b1e0a5bb37ab4b128133fc4df12916f',
+#         'HOST':'ec2-174-129-229-106.compute-1.amazonaws.com',
+#         'PORT':'5432',
+#     }
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -126,3 +139,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

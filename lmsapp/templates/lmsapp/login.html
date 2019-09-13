@@ -44,7 +44,7 @@
             </div>
 
             <div class="row p-1">
-                    {% render_field form.password class="form-control p-1" placeholder="Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+                    {% render_field form.password class+="form-control p-1" placeholder="Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
             </div>
 
             <div class="row p-1">
@@ -55,6 +55,13 @@
                     <small class="float-right"><a href="#">Forgot Password?</a></small>
                     
                 </div>
+            </div>
+            <div class="row p-1">
+                {% for message in messages %}
+                    
+                    <small class="text-danger">{{ message }}</small>
+                    
+                {% endfor %}
             </div>
 
         </form>

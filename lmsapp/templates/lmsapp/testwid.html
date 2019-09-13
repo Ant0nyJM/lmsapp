@@ -7,7 +7,29 @@
         select[selected="selected"] {  background-color: #000;}
         .bk-sub-head { font-size:1.25rem;font-weight:bold;}
         .book-btn { border-radius: 0px;}
+        #bk-flex { display:flex;flex-wrap: wrap;flex-direction: row;}
+
+        .anm {
+            visibility: visible;
+            opacity: 1;
+
+        }
+
+        .hide-anm {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s linear;
+        }
+
     </style>
+    <script type="text/javascript">
+        $("#shw-btn").onClick(function(){
+            
+            $("#sr-wid").addClass('anm')
+
+            
+        });
+    </script>
 </head>
 <body>
         <!-- <div class="form-inline mx-2">
@@ -54,7 +76,7 @@
             </div>
         </div> -->
         
-<div class="container">
+<!-- <div class="container">
     <div class="col-md-6">
         <div class="card">
             <div class="row no-gutters">
@@ -85,7 +107,39 @@
 
         </div>
     </div>        
+</div> -->
+
+<!-- <div id="bk-flex">
+
+    <div class="col-md-2">
+            <div class="card">
+                
+                    
+                
+                    <div class="card-body p-1">
+                        <h5 class="card-title"><bold>{{ book.book_name }}</bold></h5>
+                        <small class="card-text">Author - {{ book.book_author }}</small><br>
+                        <small class="card-text">Genre - {{ book.book_genre }}</small><br>
+                        <small class="card-text">Edition - {{ book.book_edition }}</small>
+                    </div>
+
+            
+                
+        
+        </div>
+    </div>
+
+</div> -->
+<input type="button" id="shw-btn" value="click to show">
+<div id="sr-wid" class="hide-anm">
+    <form>
+        <input type="text">
+        <input type="button" value="search">
+    </form>
+
 </div>
+    
+
    
 
 

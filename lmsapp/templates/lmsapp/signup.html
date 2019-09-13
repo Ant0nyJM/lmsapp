@@ -1,10 +1,32 @@
 {% extends 'lmsapp/base.html' %}
 {% block subheading%}Signup{% endblock %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type='submit'>Signup</button>
-</form>
+{% load widget_tweaks %}
+
+<div class="container ml-1">
+        <div class="col-md-4">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row p-1">
+                    {% render_field form.username class+="form-control p-1" placeholder="Username" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+                </div>
+     
+                <div class="row p-1">
+                    {% render_field form.password1 class="form-control p-1" placeholder="Enter Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+                </div>
+                <div class="row p-1">
+                    {% render_field form.password2 class="form-control p-1" placeholder="Confirm Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+                 </div>
+     
+                <div class="row p-1">
+                    <div class="col pl-0"></div>
+                        <input type="submit" class="form-control btn btn-success" value="Signup">
+                    
+                   
+                </div>
+     
+            </form>
+        </div>
+     </div>
 
 {% endblock %}

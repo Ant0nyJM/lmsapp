@@ -2,6 +2,7 @@ from django.http import HttpResponse,JsonResponse,Http404
 from django.shortcuts import render,redirect,reverse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm
+from django.contrib import messages
 from django.core import serializers
 
 from django.contrib.auth.models import User
@@ -36,16 +37,34 @@ def signup(request):
 def userlogin(request):
     if request.method == 'POST':
         print("values -->",request.POST)
+        # form = AuthenticationForm(request.POST)
+        # if form.is_valid():
+
+        #     username = request.POST['username']
+        #     user = authenticate(username= username,password=request.POST['password'])
+        #     if(user is not None):
+        #         login(request, user)
+        #         if(user.has_perm('lmsapp.can_change')):
+        #             return redirect('dash_book_issue')
+        #         else:
+        #             return redirect(reverse("user_home", args=[user.id]))
+        #     else:
+        #         return HttpResponse('Login Unsuccessfull')
+
+
+
         username = request.POST['username']
-        user = authenticate(username= username,password=request.POST['password'])
-        if(user is not None):
+        password = request.POST['password']
+        user = authenticate(username= username,password=password)
+        if (user is not None):
             login(request, user)
             if(user.has_perm('lmsapp.can_change')):
                 return redirect('dash_book_issue')
             else:
                 return redirect(reverse("user_home", args=[user.id]))
         else:
-            return HttpResponse('Login Unsuccessfull')
+            messages.error(request,'username or password not correct')
+            return redirect('login')
     else:
         form = AuthenticationForm()
         print('------------- returning new form -----------')

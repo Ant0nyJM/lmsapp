@@ -1,10 +1,33 @@
 {% extends 'lmsapp/base.html' %}
 {% block subheading %}Change Password{% endblock%}
 {% block content %}
+{% load widget_tweaks %}
+ 
 
- <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Change Password">
- </form>
+ <div class="container ml-1">
+   <div class="col-md-4">
+       <form method="post">
+           {% csrf_token %}
+           <div class="row p-1">
+               {% render_field form.old_password class+="form-control p-1" placeholder="Old Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+           </div>
+
+           <div class="row p-1">
+               {% render_field form.new_password1 class="form-control p-1" placeholder="Enter New Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+           </div>
+           <div class="row p-1">
+               {% render_field form.new_password2 class="form-control p-1" placeholder="Confirm Password" style="color: black;border:0.0625rem solid green;border-radius:0.3125rem;" %}
+            </div>
+
+           <div class="row p-1">
+               <div class="col pl-0"></div>
+                   <input type="submit" class="form-control btn btn-success" value="Change Password">
+               
+              
+           </div>
+
+       </form>
+   </div>
+</div>
+
 {% endblock %}
