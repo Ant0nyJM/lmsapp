@@ -8,7 +8,9 @@
     <style>
         .bk-sub-head { font-size:1.25rem;font-weight:bold;}
         .book-btn { border-radius: 0px;}
-    
+        .div-hide {visibility: hidden;opacity:0;transition:opacity 0.5s}
+        .div-show {visibility: visible;opacity:1;}
+
     </style>
     <script type='text/javascript'>
         function returnbook(){
@@ -53,7 +55,7 @@
         }
 
         function issuebook(){
-            $("#usr-search").toggle();
+            $("#usr-search").toggleClass('div-show');
 
         }
 
@@ -106,11 +108,12 @@
 
 
 <div class="container">
+    <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                        <img src="book.jpg" class="card-img book-thumb">
+                        <img class="card-img book-thumb">
                     </div>
                     <div class="col-md-7">
                         <div class="card-header">
@@ -146,12 +149,17 @@
                 {% endif %}
     
             </div>
-        </div>        
+        </div>   
+        <div class="col-md-6">
+                <div id="usr-search" class="div-hide">
+                        {% include 'lmsapp/usersearchwidget.html' %}
+                </div>
+
+        </div>     
+    </div>
     </div>
 
-    <div id="usr-search" style="display:none">
-            {% include 'lmsapp/usersearchwidget.html' %}
-    </div>
+
         
         
 {% endblock %}

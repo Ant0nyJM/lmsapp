@@ -74,7 +74,10 @@ def userlogin(request):
 def user_search(request):
     if request.method == 'POST':
         users = User.objects.filter(username__contains=request.POST['query'])
-        return render(request,'lmsapp/users_list.html',{'users':users})
+        if(len(users)==0):
+            return HttpResponse('<p>No users found</p>')
+        else:
+            return render(request,'lmsapp/users_list.html',{'users':users})
     else:
         return HttpResponse("<h1>Not Allowed</h1>")
 
@@ -174,4 +177,4 @@ def book_delete(request):
     else:
         book.delete()
         return JsonResponse({'ret-msg':'Book Successfully deleted','deleted':'true'})
-        
+

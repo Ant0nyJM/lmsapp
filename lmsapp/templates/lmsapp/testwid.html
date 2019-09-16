@@ -2,142 +2,50 @@
 <head>
     <title>WIDGET</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
     <style>
-        select[selected="selected"] {  background-color: #000;}
-        .bk-sub-head { font-size:1.25rem;font-weight:bold;}
-        .book-btn { border-radius: 0px;}
-        #bk-flex { display:flex;flex-wrap: wrap;flex-direction: row;}
-
+        .disp-none {opacity:0;}
+        .disp-block {display: block;}
+        @keyframes anm {
+            5% {display:block;opacity:0.1;}
+            25% {display:block; opacity: 0.2;}
+            50% {display:block; opacity:0.3}
+            75% {display:block;opacity:0.7}
+            90% {display:block;opacity: 1.0;}
+        }
         .anm {
-            visibility: visible;
-            opacity: 1;
+            animation-name: anm;
+            animation-duration: 5s;
 
         }
-
-        .hide-anm {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.5s linear;
-        }
-
     </style>
     <script type="text/javascript">
-        $("#shw-btn").onClick(function(){
-            
-            $("#sr-wid").addClass('anm')
+        $(document).ready(function(){
 
-            
+            $("#show-btn").click(function(){
+                $("#cont").addClass('anm');
+                $("#cont").removeClass('disp-none');
+                $("#cont").addClass('disp-block');
+            });
+
         });
+        
     </script>
 </head>
 <body>
-        <!-- <div class="form-inline mx-2">
-            <div class='input-group'>
 
-                <div class="input-group-prepend">
-                    <input type="text" id="searchquery" class="form-control"> 
-                    
-                
-                </div>
+    <div id="cont" class="disp-none" >
 
-                <div class="input-group-append">
-                    <span class="input-group-text">Search Using</span>
-                    <select class="custom-select">
-                        <option value="book_name" >Book Name</option>
-                        <option value="book_author" selected="selected">Book Author</option>
-                    </select>
-                    <button type="button" class="btn btn-success" onclick="submitValues()" value="Search">Search</button>
-                </div> 
-
-            </div>
-        </div> -->
-        <!-- <div class="container">
-            <div class="col-md-3">
-
-                    <div class="row p-1">
-                            <input type="password" class="form-control p-1" placeholder="Password" style="border:0.0625rem solid green;border-radius:0.3125rem;">
-                    </div>
-
-                    <div class="row p-1">
-                        <input type="text"  class="form-control p-1" placeholder="Username" style="color:black;border:0.0625rem solid green;border-radius:0.3125rem;">   
-                    </div>
-
-                    <div class="row p-1">
-                        <div class="col pl-0">
-                            <input type="submit" class="form-control btn btn-success" value="Login">
-                        </div>
-                        <div class="col align-self-center">
-                            <small><a href="#">Forgot Password?</a></small>
-                            
-                        </div>
-                    </div>
-
-            </div>
-        </div> -->
+        <form>
+            <input type="input">
+        </form>
         
-<!-- <div class="container">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="row no-gutters">
-                <div class="col-md-5">
-                    <img src="book.jpg" class="card-img book-thumb">
-                </div>
-                <div class="col-md-7">
-                    <div class="card-header">
-                        <span class="bk-sub-head" style="font-size: 1.375rem;">{{ book.book_name }}</span>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span class="bk-sub-head">Author</span><br><span>{{ book.book_author }}</span></li>
-                            <li class="list-group-item"><span class="bk-sub-head">Edition</span><br><span>{{ book.book_edition }}</span></li>
-                            <li class="list-group-item"><span class="bk-sub-head">Genre</span><br><span>{{ book.book_genre }}</span></li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <small>Book Issued</small>
-                    </div>
-                </div>
-            </div>               
-        </div>
-        <div class="row">
-            <div class="col pr-0"><input class="btn btn-success btn-block book-btn" type="button" value="Issue Book"></div>
-            <div class="col p-0"><input class="btn btn-info btn-block book-btn" type="button" value="Edit Book"></div>
-            <div class="col pl-0"><input class="btn btn-danger btn-block book-btn" type="button" value="Delete Book"></div>
-
-        </div>
-    </div>        
-</div> -->
-
-<!-- <div id="bk-flex">
-
-    <div class="col-md-2">
-            <div class="card">
-                
-                    
-                
-                    <div class="card-body p-1">
-                        <h5 class="card-title"><bold>{{ book.book_name }}</bold></h5>
-                        <small class="card-text">Author - {{ book.book_author }}</small><br>
-                        <small class="card-text">Genre - {{ book.book_genre }}</small><br>
-                        <small class="card-text">Edition - {{ book.book_edition }}</small>
-                    </div>
-
-            
-                
-        
-        </div>
     </div>
+    <input type="button" id="show-btn" value="click to show">
 
-</div> -->
-<input type="button" id="shw-btn" value="click to show">
-<div id="sr-wid" class="hide-anm">
-    <form>
-        <input type="text">
-        <input type="button" value="search">
-    </form>
-
-</div>
     
 
    
