@@ -1,6 +1,6 @@
 <script type="text/javascript">
     
-    function submitUsername(){
+    function searchUsername(){
 
         $.ajax({
             url : "{% url 'user_search' %}",
@@ -19,9 +19,12 @@
     <h3>Select User</h3>
     <input   id='usr_inp'>
 
-    <input type='button' onclick='submitUsername()' value='Search'>
-    <div id='userstable'>
-    </div>
+    <input type='button' class="btn btn-success" onclick='searchUsername()' value='Search'>
+    <form method="post">
+        <div id='userstable'>
+        </div>
+    </form>
+    
 </div>
 
 

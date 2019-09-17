@@ -4,8 +4,9 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm
 from django.contrib import messages
 from django.core import serializers
+from django.db.models import Q
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Permission
 from lmsapp.models import Book
 from lmsapp.forms import BookForm
 
@@ -26,33 +27,16 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            print("hello1")
             form.save()
             return redirect('login')
     else:
-        print("hello2")
         form = UserCreationForm()
     return render(request,'lmsapp/signup.html',{'form':form})
 
 def userlogin(request):
     if request.method == 'POST':
-        print("values -->",request.POST)
-        # form = AuthenticationForm(request.POST)
-        # if form.is_valid():
-
-        #     username = request.POST['username']
-        #     user = authenticate(username= username,password=request.POST['password'])
-        #     if(user is not None):
-        #         login(request, user)
-        #         if(user.has_perm('lmsapp.can_change')):
-        #             return redirect('dash_book_issue')
-        #         else:
-        #             return redirect(reverse("user_home", args=[user.id]))
-        #     else:
-        #         return HttpResponse('Login Unsuccessfull')
-
-
-
+        # print("values -->",request.POST)
+        
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username= username,password=password)
@@ -73,7 +57,8 @@ def userlogin(request):
 ##user search
 def user_search(request):
     if request.method == 'POST':
-        users = User.objects.filter(username__contains=request.POST['query'])
+        can_change_perm = Permission.objects.get(codename="can_change")
+        users = User.objects.filter(~Q(user_permissions=can_change_perm),username__contains=request.POST['query'],)
         if(len(users)==0):
             return HttpResponse('<p>No users found</p>')
         else:
